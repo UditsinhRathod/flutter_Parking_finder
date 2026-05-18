@@ -7,22 +7,20 @@ class SplashScreen extends StatelessWidget {
       width: double.infinity,
       height: double.infinity,
 
-      // Gradient Background
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Color(0xFF1565C0), // Dark Blue
-            Color(0xFF42A5F5), // Light Blue
-            Colors.white, // White
+            Colors.white,
+            const Color.fromARGB(154, 63, 107, 112),
+            Color.fromARGB(144, 19, 47, 80),
           ],
         ),
       ),
 
       child: Stack(
         children: [
-          // Center content - Logo, App name, Loader, Loading text
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -39,10 +37,6 @@ class SplashScreen extends StatelessWidget {
                 ),
 
                 SizedBox(height: 50),
-
-                // const CircularProgressIndicator(
-                //   valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF1565C0)),
-                // ),
                 CircularProgressIndicator(color: Color(0xFF1565C0)),
                 SizedBox(height: 20),
 
@@ -56,8 +50,6 @@ class SplashScreen extends StatelessWidget {
               ],
             ),
           ),
-
-          // Version 1.0 - Top Right corner
           Positioned(
             top: 20,
             right: 20,
@@ -70,8 +62,6 @@ class SplashScreen extends StatelessWidget {
               ),
             ),
           ),
-
-          // Copyright - Bottom Left corner
           Positioned(
             bottom: 20,
             left: 20,
