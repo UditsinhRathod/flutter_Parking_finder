@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Container(
       width: double.infinity,
       height: double.infinity,
 
@@ -14,7 +14,7 @@ class SplashScreen extends StatelessWidget {
           colors: [
             Colors.white,
             const Color.fromARGB(154, 63, 107, 112),
-            Color.fromARGB(144, 10, 53, 103),
+            Color.fromARGB(144, 19, 47, 80),
           ],
         ),
       ),
