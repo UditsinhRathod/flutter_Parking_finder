@@ -28,7 +28,7 @@ class SplashScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset("logo_2.png", width: 500),
+                Image.asset("logo_2.png", width: 200),
                 Text(
                   "ParkEase",
                   style: TextStyle(
