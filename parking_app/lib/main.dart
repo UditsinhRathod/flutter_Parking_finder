@@ -13,7 +13,7 @@ void main() {
           backgroundColor: Color(0xFF1565C0),
           foregroundColor: Colors.white,
           title: Center(
-            child: const Text(
+            child: Text(
               'Parking App',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
