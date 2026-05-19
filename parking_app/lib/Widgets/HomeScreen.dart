@@ -21,6 +21,7 @@ class _HomescreenState extends State<Homescreen> {
 
   void addParkingArea() {
     // Logic to add a new parking area
+
     setState(() {
       getParkingAreas = [
         ...getParkingAreas,
@@ -84,7 +85,13 @@ class _HomescreenState extends State<Homescreen> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
-                  onPressed: addParkingArea,
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      "/AddParkingArea",
+                      arguments: getParkingAreas,
+                    );
+                  },
                   icon: Icon(Icons.add),
                   label: Text('Add Parking Area'),
                   autofocus: true,

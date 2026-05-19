@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'Screen_2.dart';
+import 'package:parking_app/Class.dart';
+import 'package:parking_app/Widgets/AddParkingArea.dart';
+import 'package:parking_app/Widgets/HomeScreen.dart';
+import 'package:parking_app/Widgets/Splash_screen.dart';
+// import 'Screen_2.dart';
 import 'Screen_3.dart';
 
 class FragmentPlaceholder extends StatelessWidget {
@@ -9,16 +13,20 @@ class FragmentPlaceholder extends StatelessWidget {
       onGenerateRoute: (settings) {
         switch (settings.name) {
           case "/":
-            return MaterialPageRoute(builder: (_) => HomePage());
+            return MaterialPageRoute(builder: (_) => Homescreen());
 
-          case "/screen2":
-            return MaterialPageRoute(builder: (_) => Screen2());
+          case "/AddParkingArea":
+            return MaterialPageRoute(
+              builder: (_) => AddParkingArea(
+                toAdd: settings.arguments as List<ParkingArea>,
+              ),
+            );
 
           case "/screen3":
             return MaterialPageRoute(builder: (_) => Screen3());
 
           default:
-            return MaterialPageRoute(builder: (_) => HomePage());
+            return MaterialPageRoute(builder: (_) => SplashScreen());
         }
       },
     );
