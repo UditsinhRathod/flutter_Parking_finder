@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:parking_app/Widgets/HomeScreen.dart';
-import 'package:parking_app/Widgets/Splash_screen.dart';
+import 'package:parking_app/Widgets/AddParkingArea.dart';
+import 'package:parking_app/Widgets/splash_screen.dart';
 
 void main() {
   runApp(
@@ -19,16 +19,8 @@ void main() {
             ),
           ),
         ),
-        body: Center(child: Homescreen()),
+        body: Center(child: AddParkingArea()),
       ),
     ),
   );
 }
-
-//       home: Scaffold(
-//         body: SplashScreen(),
-//         backgroundColor: const Color.fromARGB(133, 11, 13, 15),
-//       ),
-//     ),
-//   );
-// }
