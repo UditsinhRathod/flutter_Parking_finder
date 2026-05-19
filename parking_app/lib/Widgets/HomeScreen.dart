@@ -16,12 +16,6 @@ class _HomescreenState extends State<Homescreen> {
       location: 'Bapunagar',
       city: 'Ahemdabad',
       totalSlots: 20,
-      availableSlots: 5,
-      parkingSlots: [
-        ParkingSlot(slotNumber: 'A1', isAvailable: true),
-        ParkingSlot(slotNumber: 'A2', isAvailable: false),
-        // Add more slots as needed
-      ],
     ),
   ];
 
@@ -34,17 +28,13 @@ class _HomescreenState extends State<Homescreen> {
           name: 'New Parking Area',
           location: 'New Location',
           city: 'New City',
-          totalSlots: 30,
-          availableSlots: 30,
-          parkingSlots: [
-            ParkingSlot(slotNumber: 'B1', isAvailable: true),
-            ParkingSlot(slotNumber: 'B2', isAvailable: false),
-            // Add more slots as needed
-          ],
+          totalSlots: 10,
         ),
       ];
     });
   }
+
+  //TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +45,22 @@ class _HomescreenState extends State<Homescreen> {
           return Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              Container(
+                margin: EdgeInsets.all(20),
+                width: 120,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey, width: 2),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+
+                child: Row(
+                  children: [
+                    Icon(Icons.search_outlined),
+                    //TextField(controller: controller),
+                  ],
+                ),
+              ),
+              Spacer(),
               Container(
                 decoration: BoxDecoration(
                   boxShadow: [
@@ -89,7 +95,15 @@ class _HomescreenState extends State<Homescreen> {
         }
 
         final parkingArea = getParkingAreas[index - 1];
-        return ParkingCard(parkingArea: parkingArea);
+        return ParkingCard(
+          parkingArea: parkingArea,
+          getParkingAreas: getParkingAreas,
+          onDeleteCallback: () {
+            setState(() {
+              getParkingAreas.remove(parkingArea);
+            });
+          },
+        );
       },
     );
   }

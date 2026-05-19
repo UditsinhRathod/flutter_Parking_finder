@@ -1,6 +1,6 @@
 class ParkingSlot {
   final String slotNumber;
-  final bool isAvailable;
+  bool isAvailable;
 
   ParkingSlot({required this.slotNumber, required this.isAvailable});
 }
@@ -9,16 +9,27 @@ class ParkingArea {
   final String name;
   final String location;
   final String city;
-  final int totalSlots;
-  final int availableSlots;
-  final List<ParkingSlot> parkingSlots;
+  int totalSlots;
+  int? availableSlots;
+  late List<ParkingSlot> parkingSlots;
+
+  void resetCount() {
+    availableSlots = parkingSlots
+        .where((e) => e.isAvailable == true)
+        .toList()
+        .length;
+  }
 
   ParkingArea({
     required this.name,
     required this.location,
     required this.city,
     required this.totalSlots,
-    required this.availableSlots,
-    required this.parkingSlots,
-  });
+  }) {
+    availableSlots = totalSlots;
+    parkingSlots = [];
+    for (int i = 1; i <= totalSlots; i++) {
+      parkingSlots.add(ParkingSlot(slotNumber: "S$i", isAvailable: true));
+    }
+  }
 }
