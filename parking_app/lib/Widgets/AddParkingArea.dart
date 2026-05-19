@@ -1,7 +1,11 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:parking_app/Class.dart';
 
 class AddParkingArea extends StatefulWidget {
-  const AddParkingArea({super.key});
+  List<ParkingArea> toAdd;
+  AddParkingArea({super.key , required this.toAdd});
 
   @override
   State<AddParkingArea> createState() => _AddParkingAreaState();
@@ -24,6 +28,12 @@ class _AddParkingAreaState extends State<AddParkingArea> {
     totalSlotsController.dispose();
 
     super.dispose();
+  }
+
+  void onAdd(){
+    setState(() {
+      widget.toAdd = [...widget.toAdd , ParkingArea(name: nameController.text, location: locationController.text, city: cityController.text, totalSlots: int.parse(totalSlotsController.text))]
+    });
   }
 
   @override
