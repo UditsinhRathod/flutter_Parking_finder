@@ -5,7 +5,8 @@ import 'package:parking_app/Class.dart';
 
 class AddParkingArea extends StatefulWidget {
   List<ParkingArea> toAdd;
-  AddParkingArea({super.key, required this.toAdd});
+  ParkingArea? toEdit;
+  AddParkingArea({super.key, required this.toAdd, this.toEdit});
 
   @override
   State<AddParkingArea> createState() => _AddParkingAreaState();
@@ -30,19 +31,43 @@ class _AddParkingAreaState extends State<AddParkingArea> {
     super.dispose();
   }
 
+  @override
+  void initState() {
+    super.initState();
+    if (widget.toEdit != null) {
+      nameController.text = widget.toEdit!.name;
+      locationController.text = widget.toEdit!.location;
+      cityController.text = widget.toEdit!.city;
+      totalSlotsController.text = widget.toEdit!.totalSlots.toString();
+    }
+  }
+
   void onAdd() {
-    setState(() {
-      widget.toAdd = [
-        ...widget.toAdd,
+    if (widget.toEdit != null) {
+      widget.toEdit!.name = nameController.text;
+      widget.toEdit!.location = locationController.text;
+      widget.toEdit!.city = cityController.text;
+      
+      int newSlots = int.parse(totalSlotsController.text);
+      if (newSlots != widget.toEdit!.totalSlots) {
+        widget.toEdit!.totalSlots = newSlots;
+        widget.toEdit!.availableSlots = newSlots;
+        widget.toEdit!.parkingSlots = [];
+        for (int i = 1; i <= newSlots; i++) {
+          widget.toEdit!.parkingSlots.add(ParkingSlot(slotNumber: "S$i", isAvailable: true));
+        }
+      }
+    } else {
+      widget.toAdd.add(
         ParkingArea(
           name: nameController.text,
           location: locationController.text,
           city: cityController.text,
           totalSlots: int.parse(totalSlotsController.text),
         ),
-      ];
-      Navigator.pop(context);
-    });
+      );
+    }
+    Navigator.pop(context);
   }
 
   @override
@@ -55,7 +80,6 @@ class _AddParkingAreaState extends State<AddParkingArea> {
           children: [
             TextField(
               controller: nameController,
-
               decoration: InputDecoration(
                 labelText: "Parking Name",
                 border: OutlineInputBorder(),
@@ -104,7 +128,7 @@ class _AddParkingAreaState extends State<AddParkingArea> {
                 onPressed: () {
                   onAdd();
                 },
-                child: Text("Add Parking Area"),
+                child: Text(widget.toEdit != null ? "Save Changes" : "Add Parking Area"),
               ),
             ),
           ],

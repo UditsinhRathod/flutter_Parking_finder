@@ -35,12 +35,18 @@ class _HomescreenState extends State<Homescreen> {
     });
   }
 
-  //TextEditingController controller = TextEditingController();
+  String searchQuery = '';
 
   @override
   Widget build(BuildContext context) {
+    final filteredParkingAreas = getParkingAreas.where((area) {
+      return area.name.toLowerCase().contains(searchQuery.toLowerCase()) || 
+             area.location.toLowerCase().contains(searchQuery.toLowerCase()) ||
+             area.city.toLowerCase().contains(searchQuery.toLowerCase());
+    }).toList();
+
     return ListView.builder(
-      itemCount: getParkingAreas.length + 1,
+      itemCount: filteredParkingAreas.length + 1,
       itemBuilder: (context, index) {
         if (index == 0) {
           return Row(
@@ -56,8 +62,25 @@ class _HomescreenState extends State<Homescreen> {
 
                 child: Row(
                   children: [
-                    Icon(Icons.search_outlined),
-                    //TextField(controller: controller),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Icon(Icons.search_outlined),
+                    ),
+                    Expanded(
+                      child: TextField(
+                        onChanged: (value) {
+                          setState(() {
+                            searchQuery = value;
+                          });
+                        },
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Search',
+                          contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                          isDense: true,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -89,8 +112,13 @@ class _HomescreenState extends State<Homescreen> {
                     Navigator.pushNamed(
                       context,
                       "/AddParkingArea",
-                      arguments: getParkingAreas,
-                    );
+                      arguments: {
+                        'toAdd': getParkingAreas,
+                        'toEdit': null,
+                      },
+                    ).then((_) {
+                      setState(() {});
+                    });
                   },
                   icon: Icon(Icons.add),
                   label: Text('Add Parking Area'),
@@ -101,7 +129,7 @@ class _HomescreenState extends State<Homescreen> {
           );
         }
 
-        final parkingArea = getParkingAreas[index - 1];
+        final parkingArea = filteredParkingAreas[index - 1];
         return ParkingCard(
           parkingArea: parkingArea,
           getParkingAreas: getParkingAreas,

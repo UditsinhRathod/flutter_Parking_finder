@@ -19,7 +19,20 @@ class ParkingCard extends StatefulWidget {
 
 class _ParkingCardState extends State<ParkingCard> {
   void onDelete() {
-    widget.onDeleteCallback(); 
+    widget.onDeleteCallback();
+  }
+
+  void onEdit() {
+    Navigator.pushNamed(
+      context,
+      "/AddParkingArea",
+      arguments: {
+        'toAdd': widget.getParkingAreas,
+        'toEdit': widget.parkingArea,
+      },
+    ).then((_) {
+      setState(() {});
+    });
   }
 
   @override
@@ -32,6 +45,7 @@ class _ParkingCardState extends State<ParkingCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              spacing: 10,
               children: [
                 Expanded(
                   child: ListTile(
@@ -49,6 +63,8 @@ class _ParkingCardState extends State<ParkingCard> {
                   onPressed: onDelete,
                   icon: Icon(Icons.delete_outline),
                 ),
+
+                IconButton(onPressed: onEdit, icon: Icon(Icons.edit)),
               ],
             ),
 
