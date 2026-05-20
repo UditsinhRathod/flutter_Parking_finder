@@ -6,8 +6,15 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  timer() {
+    Future.delayed(const Duration(seconds: 1), () {
+      Navigator.pushReplacementNamed(context, "/HomeScreen");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    timer();
     return Container(
       width: double.infinity,
       height: double.infinity,

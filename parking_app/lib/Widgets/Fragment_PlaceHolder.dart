@@ -32,6 +32,8 @@ class FragmentPlaceholder extends StatelessWidget {
               onGenerateRoute: (settings) {
                 switch (settings.name) {
                   case "/":
+                    return MaterialPageRoute(builder: (_) => SplashScreen());
+                  case "/HomeScreen":
                     return MaterialPageRoute(
                       builder: (_) => Homescreen(parkingAreas: getParkingAreas),
                     );

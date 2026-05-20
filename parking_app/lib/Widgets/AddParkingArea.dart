@@ -72,93 +72,115 @@ class _AddParkingAreaState extends State<AddParkingArea> {
     Navigator.pop(context);
   }
 
+  Widget _buildTextField(String label, TextEditingController controller, [bool isNumber = false]) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            color: Color(0xFF1565C0),
+            fontWeight: FontWeight.w600,
+            fontSize: 14,
+          ),
+        ),
+        const SizedBox(height: 8),
+        TextFormField(
+          controller: controller,
+          keyboardType: isNumber ? TextInputType.number : TextInputType.text,
+          validator: (value) {
+            if (value == null || value.isEmpty) return 'Required';
+            if (isNumber && int.tryParse(value) == null) return 'Must be a valid number';
+            return null;
+          },
+          decoration: InputDecoration(
+            hintText: label,
+            hintStyle: const TextStyle(color: Colors.grey),
+            filled: true,
+            fillColor: Colors.grey.shade100,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide.none,
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: Color(0xFF1565C0), width: 1.5),
+            ),
+          ),
+        ),
+        const SizedBox(height: 24),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          widget.toEdit != null ? "Edit Parking Area" : "Add Parking Area",
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                controller: nameController,
-                decoration: InputDecoration(
-                  labelText: "Parking Name",
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) => value == null || value.isEmpty
-                    ? 'Please enter a name'
-                    : null,
-              ),
-
-              SizedBox(height: 15),
-
-              TextFormField(
-                controller: locationController,
-
-                decoration: InputDecoration(
-                  labelText: "Location",
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) => value == null || value.isEmpty
-                    ? 'Please enter a location'
-                    : null,
-              ),
-
-              SizedBox(height: 15),
-
-              TextFormField(
-                controller: cityController,
-
-                decoration: InputDecoration(
-                  labelText: "City",
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) => value == null || value.isEmpty
-                    ? 'Please enter a city'
-                    : null,
-              ),
-
-              SizedBox(height: 15),
-
-              TextFormField(
-                controller: totalSlotsController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: "Total Slots",
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty)
-                    return 'Please enter total slots';
-                  if (int.tryParse(value) == null)
-                    return 'Must be a valid number';
-                  return null;
-                },
-              ),
-
-              SizedBox(height: 25),
-
-              SizedBox(
-                width: double.infinity,
-
-                child: ElevatedButton(
-                  onPressed: () {
-                    onAdd();
-                  },
-                  child: Text(
-                    widget.toEdit != null ? "Save Changes" : "Add Parking Area",
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  // Custom Header
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: const Icon(Icons.arrow_back, color: Color(0xFF1565C0), size: 28),
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                      ),
+                      Expanded(
+                        child: Text(
+                          widget.toEdit != null ? "Edit Parking Area" : "Add New Parking Area",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF1565C0),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 28), // Balance the row
+                    ],
                   ),
-                ),
+                  const SizedBox(height: 40),
+                  
+                  _buildTextField("Parking Name", nameController),
+                  _buildTextField("Location", locationController),
+                  _buildTextField("City", cityController),
+                  _buildTextField("Total Slots", totalSlotsController, true),
+
+                  const SizedBox(height: 16),
+                  
+                  SizedBox(
+                    width: double.infinity,
+                    height: 54,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF0088FF),
+                        foregroundColor: Colors.white,
+                        elevation: 4,
+                        shadowColor: const Color(0xFF0088FF).withOpacity(0.5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(27),
+                        ),
+                      ),
+                      onPressed: onAdd,
+                      child: Text(
+                        widget.toEdit != null ? "Save Changes" : "Add Parking Area",
+                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
