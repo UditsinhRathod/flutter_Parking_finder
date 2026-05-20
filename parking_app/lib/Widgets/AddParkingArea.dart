@@ -13,12 +13,10 @@ class AddParkingArea extends StatefulWidget {
 }
 
 class _AddParkingAreaState extends State<AddParkingArea> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
-
   final TextEditingController locationController = TextEditingController();
-
   final TextEditingController cityController = TextEditingController();
-
   final TextEditingController totalSlotsController = TextEditingController();
 
   @override
@@ -43,18 +41,22 @@ class _AddParkingAreaState extends State<AddParkingArea> {
   }
 
   void onAdd() {
+    if (!_formKey.currentState!.validate()) return;
+
     if (widget.toEdit != null) {
       widget.toEdit!.name = nameController.text;
       widget.toEdit!.location = locationController.text;
       widget.toEdit!.city = cityController.text;
-      
+
       int newSlots = int.parse(totalSlotsController.text);
       if (newSlots != widget.toEdit!.totalSlots) {
         widget.toEdit!.totalSlots = newSlots;
         widget.toEdit!.availableSlots = newSlots;
         widget.toEdit!.parkingSlots = [];
         for (int i = 1; i <= newSlots; i++) {
-          widget.toEdit!.parkingSlots.add(ParkingSlot(slotNumber: "S$i", isAvailable: true));
+          widget.toEdit!.parkingSlots.add(
+            ParkingSlot(slotNumber: "S$i", isAvailable: true),
+          );
         }
       }
     } else {
@@ -72,66 +74,94 @@ class _AddParkingAreaState extends State<AddParkingArea> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          widget.toEdit != null ? "Edit Parking Area" : "Add Parking Area",
+        ),
+      ),
+      body: Padding(
         padding: const EdgeInsets.all(16),
 
-        child: Column(
-          children: [
-            TextField(
-              controller: nameController,
-              decoration: InputDecoration(
-                labelText: "Parking Name",
-                border: OutlineInputBorder(),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                controller: nameController,
+                decoration: InputDecoration(
+                  labelText: "Parking Name",
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) => value == null || value.isEmpty
+                    ? 'Please enter a name'
+                    : null,
               ),
-            ),
 
-            SizedBox(height: 15),
+              SizedBox(height: 15),
 
-            TextField(
-              controller: locationController,
+              TextFormField(
+                controller: locationController,
 
-              decoration: InputDecoration(
-                labelText: "Location",
-                border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: "Location",
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) => value == null || value.isEmpty
+                    ? 'Please enter a location'
+                    : null,
               ),
-            ),
 
-            SizedBox(height: 15),
+              SizedBox(height: 15),
 
-            TextField(
-              controller: cityController,
+              TextFormField(
+                controller: cityController,
 
-              decoration: InputDecoration(
-                labelText: "City",
-                border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: "City",
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) => value == null || value.isEmpty
+                    ? 'Please enter a city'
+                    : null,
               ),
-            ),
 
-            SizedBox(height: 15),
+              SizedBox(height: 15),
 
-            TextField(
-              controller: totalSlotsController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: "Total Slots",
-                border: OutlineInputBorder(),
-              ),
-            ),
-
-            SizedBox(height: 25),
-
-            SizedBox(
-              width: double.infinity,
-
-              child: ElevatedButton(
-                onPressed: () {
-                  onAdd();
+              TextFormField(
+                controller: totalSlotsController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "Total Slots",
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty)
+                    return 'Please enter total slots';
+                  if (int.tryParse(value) == null)
+                    return 'Must be a valid number';
+                  return null;
                 },
-                child: Text(widget.toEdit != null ? "Save Changes" : "Add Parking Area"),
               ),
-            ),
-          ],
+
+              SizedBox(height: 25),
+
+              SizedBox(
+                width: double.infinity,
+
+                child: ElevatedButton(
+                  onPressed: () {
+                    onAdd();
+                  },
+                  child: Text(
+                    widget.toEdit != null ? "Save Changes" : "Add Parking Area",
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
+      ),
     );
   }
 }

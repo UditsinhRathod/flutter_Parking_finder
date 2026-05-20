@@ -4,7 +4,6 @@ import 'package:parking_app/Class.dart';
 class ParkingCard extends StatefulWidget {
   ParkingArea parkingArea;
   List<ParkingArea> getParkingAreas;
-
   VoidCallback onDeleteCallback;
   ParkingCard({
     super.key,
@@ -125,7 +124,13 @@ class _ParkingCardState extends State<ParkingCard> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Color(0xFF1565C0), width: 2),
-                gradient: LinearGradient(colors: [Colors.grey, Colors.white]),
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.white,
+                    Color.fromARGB(255, 114, 151, 194),
+                    Colors.white,
+                  ],
+                ),
               ),
 
               child: Row(
