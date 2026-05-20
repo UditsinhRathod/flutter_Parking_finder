@@ -7,30 +7,58 @@ import 'package:parking_app/Widgets/Splash_screen.dart';
 import 'Screen_3.dart';
 
 class FragmentPlaceholder extends StatelessWidget {
+
+  
+
   @override
   Widget build(BuildContext context) {
-    return Navigator(
-      onGenerateRoute: (settings) {
-        switch (settings.name) {
-          case "/":
-            return MaterialPageRoute(builder: (_) => Homescreen());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: Text("Parking App")),
 
-          case "/AddParkingArea":
-            final args = settings.arguments as Map<String, dynamic>;
-            return MaterialPageRoute(
-              builder: (_) => AddParkingArea(
-                toAdd: args['toAdd'] as List<ParkingArea>,
-                toEdit: args['toEdit'] as ParkingArea?,
+        body: Container(
+          color: Colors.blue,
+          child: Column(
+            children: [
+              Text("Data"),
+              Expanded(
+                child: Container(
+                  color: Colors.yellow,
+                  child: Navigator(
+                    onGenerateRoute: (settings) {
+                      switch (settings.name) {
+                        case "/":
+                          return MaterialPageRoute(
+                            builder: (_) => Homescreen(),
+                          );
+
+                        case "/AddParkingArea":
+                          final args =
+                              settings.arguments as Map<String, dynamic>;
+                          return MaterialPageRoute(
+                            builder: (_) => AddParkingArea(
+                              toAdd: args['toAdd'] as List<ParkingArea>,
+                              toEdit: args['toEdit'] as ParkingArea?,
+                            ),
+                          );
+
+                        case "/screen3":
+                          return MaterialPageRoute(builder: (_) => Screen3());
+
+                        default:
+                          return MaterialPageRoute(
+                            builder: (_) => SplashScreen(),
+                          );
+                      }
+                    },
+                  ),
+                ),
               ),
-            );
-
-          case "/screen3":
-            return MaterialPageRoute(builder: (_) => Screen3());
-
-          default:
-            return MaterialPageRoute(builder: (_) => SplashScreen());
-        }
-      },
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

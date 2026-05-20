@@ -72,8 +72,7 @@ class _AddParkingAreaState extends State<AddParkingArea> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
+    return Padding(
         padding: const EdgeInsets.all(16),
 
         child: Column(
@@ -133,7 +132,6 @@ class _AddParkingAreaState extends State<AddParkingArea> {
             ),
           ],
         ),
-      ),
     );
   }
 }
