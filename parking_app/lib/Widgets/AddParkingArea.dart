@@ -41,6 +41,7 @@ class _AddParkingAreaState extends State<AddParkingArea> {
           totalSlots: int.parse(totalSlotsController.text),
         ),
       ];
+      Navigator.pop(context);
     });
   }
 
