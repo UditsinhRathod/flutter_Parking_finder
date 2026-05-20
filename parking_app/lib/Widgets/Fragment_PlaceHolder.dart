@@ -16,9 +16,11 @@ class FragmentPlaceholder extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => Homescreen());
 
           case "/AddParkingArea":
+            final args = settings.arguments as Map<String, dynamic>;
             return MaterialPageRoute(
               builder: (_) => AddParkingArea(
-                toAdd: settings.arguments as List<ParkingArea>,
+                toAdd: args['toAdd'] as List<ParkingArea>,
+                toEdit: args['toEdit'] as ParkingArea?,
               ),
             );
 

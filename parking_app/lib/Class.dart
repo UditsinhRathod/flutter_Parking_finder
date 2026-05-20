@@ -6,9 +6,9 @@ class ParkingSlot {
 }
 
 class ParkingArea {
-  final String name;
-  final String location;
-  final String city;
+  String name;
+  String location;
+  String city;
   int totalSlots;
   int? availableSlots;
   late List<ParkingSlot> parkingSlots;
