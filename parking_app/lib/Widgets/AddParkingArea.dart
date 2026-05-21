@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:parking_app/Class.dart';
+import 'package:parking_app/Widgets/Save.dart';
 
 class AddParkingArea extends StatefulWidget {
   List<ParkingArea> toAdd;
@@ -69,10 +70,16 @@ class _AddParkingAreaState extends State<AddParkingArea> {
         ),
       );
     }
+
+    saveData(widget.toAdd);
     Navigator.pop(context);
   }
 
-  Widget _buildTextField(String label, TextEditingController controller, [bool isNumber = false]) {
+  Widget _buildTextField(
+    String label,
+    TextEditingController controller, [
+    bool isNumber = false,
+  ]) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -90,7 +97,8 @@ class _AddParkingAreaState extends State<AddParkingArea> {
           keyboardType: isNumber ? TextInputType.number : TextInputType.text,
           validator: (value) {
             if (value == null || value.isEmpty) return 'Required';
-            if (isNumber && int.tryParse(value) == null) return 'Must be a valid number';
+            if (isNumber && int.tryParse(value) == null)
+              return 'Must be a valid number';
             return null;
           },
           decoration: InputDecoration(
@@ -98,14 +106,20 @@ class _AddParkingAreaState extends State<AddParkingArea> {
             hintStyle: const TextStyle(color: Colors.grey),
             filled: true,
             fillColor: Colors.grey.shade100,
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 14,
+            ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide.none,
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: Color(0xFF1565C0), width: 1.5),
+              borderSide: const BorderSide(
+                color: Color(0xFF1565C0),
+                width: 1.5,
+              ),
             ),
           ),
         ),
@@ -121,7 +135,10 @@ class _AddParkingAreaState extends State<AddParkingArea> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 24.0,
+              vertical: 24.0,
+            ),
             child: Form(
               key: _formKey,
               child: Column(
@@ -131,13 +148,19 @@ class _AddParkingAreaState extends State<AddParkingArea> {
                     children: [
                       IconButton(
                         onPressed: () => Navigator.pop(context),
-                        icon: const Icon(Icons.arrow_back, color: Color(0xFF1565C0), size: 28),
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: Color(0xFF1565C0),
+                          size: 28,
+                        ),
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(),
                       ),
                       Expanded(
                         child: Text(
-                          widget.toEdit != null ? "Edit Parking Area" : "Add New Parking Area",
+                          widget.toEdit != null
+                              ? "Edit Parking Area"
+                              : "Add New Parking Area",
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             fontSize: 22,
@@ -150,14 +173,14 @@ class _AddParkingAreaState extends State<AddParkingArea> {
                     ],
                   ),
                   const SizedBox(height: 40),
-                  
+
                   _buildTextField("Parking Name", nameController),
                   _buildTextField("Location", locationController),
                   _buildTextField("City", cityController),
                   _buildTextField("Total Slots", totalSlotsController, true),
 
                   const SizedBox(height: 16),
-                  
+
                   SizedBox(
                     width: double.infinity,
                     height: 54,
@@ -173,8 +196,13 @@ class _AddParkingAreaState extends State<AddParkingArea> {
                       ),
                       onPressed: onAdd,
                       child: Text(
-                        widget.toEdit != null ? "Save Changes" : "Add Parking Area",
-                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        widget.toEdit != null
+                            ? "Save Changes"
+                            : "Add Parking Area",
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),

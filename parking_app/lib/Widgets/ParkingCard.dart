@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:parking_app/Class.dart';
+import 'package:parking_app/Widgets/Save.dart';
 
 class ParkingCard extends StatefulWidget {
   ParkingArea parkingArea;
@@ -19,6 +20,7 @@ class ParkingCard extends StatefulWidget {
 class _ParkingCardState extends State<ParkingCard> {
   void onDelete() {
     widget.onDeleteCallback();
+    saveData(widget.getParkingAreas);
   }
 
   void onEdit() {
