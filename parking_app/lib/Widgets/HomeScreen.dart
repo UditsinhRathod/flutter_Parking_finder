@@ -23,7 +23,21 @@ class _HomescreenState extends State<Homescreen> {
     }).toList();
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      appBar: AppBar(
+        
+        title: Center(
+          child: Text(
+            "ParkEase",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        backgroundColor: const Color.fromARGB(255, 68, 140, 199),
+      ),
+
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),

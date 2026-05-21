@@ -131,6 +131,10 @@ class _AddParkingAreaState extends State<AddParkingArea> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          title: Text("Modify Details", style: TextStyle(color: Colors.white)),
+          backgroundColor: const Color.fromARGB(255, 68, 140, 199),
+        ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(

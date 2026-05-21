@@ -38,13 +38,7 @@ class _FragmentPlaceholderState extends State<FragmentPlaceholder> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Parking App", style: TextStyle(color: Colors.white)),
-          backgroundColor: const Color.fromARGB(255, 68, 140, 199),
-        ),
-
-        body: Navigator(
+      home:  Navigator(
           key: _navigatorKey,
           onGenerateRoute: (settings) {
             switch (settings.name) {
@@ -72,7 +66,7 @@ class _FragmentPlaceholderState extends State<FragmentPlaceholder> {
             }
           },
         ),
-      ),
+      
     );
   }
 }
