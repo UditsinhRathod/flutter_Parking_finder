@@ -31,7 +31,6 @@ class _HomescreenState extends State<Homescreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20),
-              // Header
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -70,7 +69,6 @@ class _HomescreenState extends State<Homescreen> {
                 ],
               ),
               const SizedBox(height: 20),
-              // Search Bar
               Container(
                 decoration: BoxDecoration(
                   color: Colors.grey.shade100,
@@ -92,7 +90,6 @@ class _HomescreenState extends State<Homescreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              // List
               Expanded(
                 child: ListView.builder(
                   itemCount: filteredParkingAreas.length,

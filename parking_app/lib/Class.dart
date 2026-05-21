@@ -48,4 +48,5 @@ class ParkingArea {
         'parkingSlots': parkingSlots.map((slot) => slot.toJson()).toList(),
       };
     }
+    
 }

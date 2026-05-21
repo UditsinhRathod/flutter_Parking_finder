@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:parking_app/Class.dart';
 import 'package:parking_app/Widgets/AddParkingArea.dart';
 import 'package:parking_app/Widgets/HomeScreen.dart';
+import 'package:parking_app/Widgets/Save.dart';
 // import 'package:parking_app/Widgets/Screen_2.dart';
 import 'package:parking_app/Widgets/Splash_screen.dart';
 // import 'Screen_2.dart';
@@ -15,14 +16,10 @@ class FragmentPlaceholder extends StatefulWidget {
 class _FragmentPlaceholderState extends State<FragmentPlaceholder> {
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
 
-  List<ParkingArea> getParkingAreas = [
-    ParkingArea(
-      name: 'A-Z Parking',
-      location: 'Bapunagar',
-      city: 'Ahemdabad',
-      totalSlots: 20,
-    ),
-  ];
+  List<ParkingArea> getParkingAreas = [];
+  _FragmentPlaceholderState() {
+    loadData(getParkingAreas);
+  }
   @override
   void initState() {
     super.initState();
@@ -71,25 +68,6 @@ class _FragmentPlaceholderState extends State<FragmentPlaceholder> {
                 return MaterialPageRoute(builder: (_) => SplashScreen());
             }
           },
-        ),
-      ),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Home")),
-
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pushNamed(context, "/screen2");
-          },
-
-          child: Text("Go To Screen2"),
         ),
       ),
     );
