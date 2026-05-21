@@ -7,7 +7,14 @@ import 'package:parking_app/Widgets/Splash_screen.dart';
 // import 'Screen_2.dart';
 import 'Screen_3.dart';
 
-class FragmentPlaceholder extends StatelessWidget {
+class FragmentPlaceholder extends StatefulWidget {
+  @override
+  State<FragmentPlaceholder> createState() => _FragmentPlaceholderState();
+}
+
+class _FragmentPlaceholderState extends State<FragmentPlaceholder> {
+  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+
   List<ParkingArea> getParkingAreas = [
     ParkingArea(
       name: 'A-Z Parking',
@@ -16,6 +23,16 @@ class FragmentPlaceholder extends StatelessWidget {
       totalSlots: 20,
     ),
   ];
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 2), () {
+      _navigatorKey.currentState?.pushReplacementNamed(
+        "/HomeScreen",
+        arguments: {'parkingAreas': getParkingAreas},
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,34 +44,35 @@ class FragmentPlaceholder extends StatelessWidget {
           backgroundColor: const Color.fromARGB(255, 68, 140, 199),
         ),
 
-        body: Expanded(
-            child: Navigator(
-              onGenerateRoute: (settings) {
-                switch (settings.name) {
-                  case "/":
-                    return MaterialPageRoute(
-                      builder: (_) => Homescreen(parkingAreas: getParkingAreas),
-                    );
+        body: Navigator(
+          key: _navigatorKey,
+          onGenerateRoute: (settings) {
+            switch (settings.name) {
+              case "/":
+                return MaterialPageRoute(builder: (_) => SplashScreen());
+              case "/HomeScreen":
+                return MaterialPageRoute(
+                  builder: (_) => Homescreen(parkingAreas: getParkingAreas),
+                );
 
-                  case "/AddParkingArea":
-                    final args = settings.arguments as Map<String, dynamic>;
-                    return MaterialPageRoute(
-                      builder: (_) => AddParkingArea(
-                        toAdd: args['toAdd'] as List<ParkingArea>,
-                        toEdit: args['toEdit'] as ParkingArea?,
-                      ),
-                    );
+              case "/AddParkingArea":
+                final args = settings.arguments as Map<String, dynamic>;
+                return MaterialPageRoute(
+                  builder: (_) => AddParkingArea(
+                    toAdd: args['toAdd'] as List<ParkingArea>,
+                    toEdit: args['toEdit'] as ParkingArea?,
+                  ),
+                );
 
-                  case "/screen3":
-                    return MaterialPageRoute(builder: (_) => Screen3());
+              case "/screen3":
+                return MaterialPageRoute(builder: (_) => Screen3());
 
-                  default:
-                    return MaterialPageRoute(builder: (_) => SplashScreen());
-                }
-              },
-            ),
-          ),
+              default:
+                return MaterialPageRoute(builder: (_) => SplashScreen());
+            }
+          },
         ),
+      ),
     );
   }
 }

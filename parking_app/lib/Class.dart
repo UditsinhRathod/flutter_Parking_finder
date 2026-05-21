@@ -3,6 +3,12 @@ class ParkingSlot {
   bool isAvailable;
 
   ParkingSlot({required this.slotNumber, required this.isAvailable});
+  Map<String, dynamic> toJson() {
+    return {
+      'slotNumber': slotNumber,
+      'isAvailable': isAvailable,
+    };
+  }
 }
 
 class ParkingArea {
@@ -32,4 +38,14 @@ class ParkingArea {
       parkingSlots.add(ParkingSlot(slotNumber: "S$i", isAvailable: true));
     }
   }
+   Map<String, dynamic> toJson() {
+      return {
+        'name': name,
+        'location': location,
+        'city': city,
+        'totalSlots': totalSlots,
+        'availableSlots': availableSlots,
+        'parkingSlots': parkingSlots.map((slot) => slot.toJson()).toList(),
+      };
+    }
 }
