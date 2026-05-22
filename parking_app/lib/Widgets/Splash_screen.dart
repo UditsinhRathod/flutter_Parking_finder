@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset("logo_2.png", width: 200),
+                Image.asset("assets/images/Logo_2.png", width: 200),
                 Text(
                   "ParkEase",
                   style: TextStyle(
